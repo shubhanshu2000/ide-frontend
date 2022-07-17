@@ -9,9 +9,4 @@ export default defineConfig({
     "@": resolve(__dirname, "src"),
   },
   plugins: [react()],
-  build: {
-    rollupOptions: {
-      external: ["react", "react-dom"],
-    },
-  },
 });
