@@ -3,6 +3,8 @@ import Editor from "@monaco-editor/react";
 import { initSocket } from "../Websocket/Socket";
 import Avatar from "react-avatar";
 import Split from "react-split";
+import prettier2 from "prettier/standalone";
+import parserBabel from "prettier/parser-babel";
 
 import {
   useLocation,
@@ -23,6 +25,17 @@ function EditorPage() {
   const socktRef = useRef(null);
 
   function handleEditorMount(editor, monaco) {
+    editor.addAction({
+      id: "execute code",
+      label: "Execute code",
+      keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter],
+      run: () => {
+        showValue();
+      },
+    });
+    console.log(monaco.KeyMod, "monaco.KeyMod");
+    console.log(monaco.KeyCode, "monaco.KeyCode");
+
     editorRef.current = editor;
   }
   useEffect(() => {
@@ -47,7 +60,14 @@ function EditorPage() {
       code,
     });
   }
-
+  function prettier() {
+    const code = editorRef.current.getValue();
+    const prettierCode = prettier2.format(code, {
+      parser: "babel",
+      plugins: [parserBabel],
+    });
+    editorRef.current.setValue(prettierCode);
+  }
   useEffect(() => {
     const init = async () => {
       socktRef.current = await initSocket();
@@ -102,11 +122,6 @@ function EditorPage() {
     <Navigate to="/" />;
   }
 
-  function runOnCtrlPlusShift(e) {
-    if (e.key === "Control" && "Shift") {
-      showValue();
-    }
-  }
   async function copyRoomID() {
     try {
       await navigator.clipboard.writeText(roomid);
@@ -134,7 +149,6 @@ function EditorPage() {
                     className="m-auto flex p-2 flex-col w-1/2"
                   >
                     <Avatar
-                      // key={socketId}
                       className="m-auto"
                       name={name}
                       size="40"
@@ -146,13 +160,19 @@ function EditorPage() {
               ))}
             </div>
             <div className="absolute bottom-0 w-1/5 ">
-              <div className=" flex items-center  justify-center">
+              <div className=" flex items-center flex-wrap justify-around">
                 <button
                   className="bg-green-400 px-6 rounded-lg mb-2 items-center py-2"
-                  title="Click to run code or press Ctrl+Shift to run code"
+                  title="Click to run code or press Ctrl+Enter to run code"
                   onClick={showValue}
                 >
                   Run
+                </button>
+                <button
+                  className="bg-pink-400 px-6 rounded-lg mb-2 items-center py-2"
+                  onClick={prettier}
+                >
+                  Prettier
                 </button>
               </div>
               <div className="flex flex-wrap justify-around items-center">
@@ -176,7 +196,7 @@ function EditorPage() {
         </div>
         <div className="  w-4/5">
           <Split sizes={[70, 30]} minSize={[600, 200]} className="flex ">
-            <div onKeyUp={runOnCtrlPlusShift}>
+            <div>
               <Editor
                 className="ide h-screen"
                 defaultLanguage="javascript"
