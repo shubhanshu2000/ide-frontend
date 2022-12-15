@@ -75,7 +75,6 @@ function EditorPage() {
       socktRef.current.on("connect_failed", (err) => handleErr(err));
 
       function handleErr(e) {
-        console.log("socket error", e);
         toast.error("Socket connection failed, try again later");
         reactNavigator("/");
       }
@@ -128,7 +127,6 @@ function EditorPage() {
       toast.success("Room ID successfully copied to your clipboard");
     } catch (err) {
       toast.error("Could not copy Room ID");
-      console.error(err);
     }
   }
   function leaveRoom() {
