@@ -7,5 +7,5 @@ export const initSocket = async () => {
     timeout: 10000,
     transports: ["websocket"],
   };
-  return io("https://ide-backend-blond.vercel.app/", options);
+  return io("https://ide-backend-ewjt8g4bl-shubhanshu2000.vercel.app/", options);
 };
