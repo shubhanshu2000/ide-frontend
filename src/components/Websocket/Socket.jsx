@@ -6,6 +6,7 @@ export const initSocket = async () => {
     "force new connection": false,
     reconnectionAttempt: "Infinity",
     timeout: 10000,
+    allowEIO3: true,
     transports: ["websocket"],
   };
   return io(url, options);
