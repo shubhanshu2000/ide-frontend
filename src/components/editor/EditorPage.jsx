@@ -33,8 +33,8 @@ function EditorPage() {
         showValue();
       },
     });
-    console.log(monaco.KeyMod, "monaco.KeyMod");
-    console.log(monaco.KeyCode, "monaco.KeyCode");
+    // console.log(monaco.KeyMod, "monaco.KeyMod");
+    // console.log(monaco.KeyCode, "monaco.KeyCode");
 
     editorRef.current = editor;
   }

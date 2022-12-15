@@ -13,6 +13,11 @@ function Home() {
     toast.success(" Room Id Generated");
     setRoomId(uuidv4());
   };
+  // (async function () {
+  //   const getD = await fetch("https://ide-backend-blond.vercel.app/");
+  //   const resD = await getD.json();
+  //   console.log(resD);
+  // })();
   const joinRoom = (e) => {
     e.preventDefault();
     if (!roomid || !name) {
