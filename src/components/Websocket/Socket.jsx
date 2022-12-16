@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 
 export const initSocket = async () => {
-  const url = "https://ide-backend-blond.vercel.app/";
+  const url = "https://ws-klma.onrender.com";
   const options = {
     "force new connection": false,
     reconnectionAttempt: "Infinity",
