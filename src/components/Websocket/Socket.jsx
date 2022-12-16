@@ -2,6 +2,7 @@ import { io } from "socket.io-client";
 
 export const initSocket = async () => {
   const url = "https://ide-backend-blond.vercel.app/";
+  // const url = "http://localhost:5000/";
   const options = {
     "force new connection": false,
     reconnectionAttempt: "Infinity",
@@ -11,6 +12,3 @@ export const initSocket = async () => {
   };
   return io(url, options);
 };
-
-//https://personal-ide-backend.herokuapp.com/
-//https://ide-backend-blond.vercel.app/
